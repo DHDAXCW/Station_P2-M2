@@ -11,7 +11,7 @@ env:
   REPO_URL: https://github.com/DHDAXCW/Station_P2_SourceCode
   REPO_BRANCH: main
   CONFIG_FILE: configs/lean/lean.config
-  DIY_SH: scripts/lean1.sh
+  DIY_SH: scripts/lean.sh
   IPV6MOD_IN_FIRMWARE: true
   KMODS_IN_FIRMWARE: true
   UPLOAD_WETRANSFER: true
