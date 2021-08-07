@@ -161,7 +161,7 @@ jobs:
       if: steps.generate.outputs.GENERATE_STATUS == 'success'
       with:
         name: bin-archive
-        path: openwrt/bin/targets
+        path: openwrt/bin/target
         
   Upload:
     needs: [Build]
