@@ -5,4 +5,4 @@ ip 1982.168.2.1
 基于lede源码改的
 
 Image镜像传送门  https://github.com/DHDAXCW/Image
-感谢lede大佬 https://github.com/coolsnowwolf/lede
+## 感谢lede大佬 https://github.com/coolsnowwolf/lede
