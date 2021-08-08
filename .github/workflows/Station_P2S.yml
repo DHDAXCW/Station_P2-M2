@@ -126,11 +126,6 @@ jobs:
         echo "::set-output name=FIRMWARE::$(echo $PWD)"
         echo "::set-output name=COMPILE_STATUS::success"
 
-    - name: Compress Img Files
-      run: |
-        cd $OPENWRTROOT/bin/targets/$TARGET/$SUBTARGET
-        gzip *.img
-        
     - name: Upload Bin Folder
       uses: actions/upload-artifact@main
       if: steps.generate.outputs.GENERATE_STATUS == 'success'
