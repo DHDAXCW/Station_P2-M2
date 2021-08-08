@@ -99,38 +99,26 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
   
-    - name: Compile Packages
+    - name: Compile the firmware
       id: compile
       run: |
-        cd $OPENWRTROOT
+        cd openwrt
         echo -e "$(nproc) thread compile"
-        make tools/compile -j$(nproc) || make tools/compile -j1 V=s
-        make toolchain/compile -j$(nproc) || make toolchain/compile -j1 V=s
-        make target/compile -j$(nproc) || make target/compile -j1 V=s IGNORE_ERRORS=1
-        make diffconfig
-        make package/compile -j$(nproc) IGNORE_ERRORS=1 || make package/compile -j1 V=s IGNORE_ERRORS=1
-        make package/index
-        cd $OPENWRTROOT/bin/packages/*
-        PLATFORM=$(basename `pwd`)
-        echo "PLATFORM=$PLATFORM" >> $GITHUB_ENV
-        echo "::set-output name=PLATFORM::$(echo $PLATFORM)"
-        cd $OPENWRTROOT/bin/targets/*
-        TARGET=$(basename `pwd`)
-        echo "TARGET=$TARGET" >> $GITHUB_ENV
-        echo "::set-output name=TARGET::$(echo $TARGET)"
-        cd *
-        SUBTARGET=$(basename `pwd`)
-        echo "SUBTARGET=$SUBTARGET" >> $GITHUB_ENV
-        echo "::set-output name=SUBTARGET::$(echo $SUBTARGET)"
-        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-        echo "::set-output name=FIRMWARE::$(echo $PWD)"
-        echo "::set-output name=COMPILE_STATUS::success"
-    
-    - name: Upload Bin Folder
+        make -j$(nproc) || make -j2 || make -j2 V=s
+        echo "::set-output name=status::success"
+        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
+        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
+        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        
+    - name: Check space usage
+      if: (!cancelled())
+      run: df -hT
+
+    - name: Upload bin directory
       uses: actions/upload-artifact@main
-      if: steps.generate.outputs.COMPILE_STATUS == 'success'
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: bin-archive
+        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
         
   Upload:
