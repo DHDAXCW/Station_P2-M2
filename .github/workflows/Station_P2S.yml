@@ -1,4 +1,4 @@
-name: Build P2S Lean-StationP2
+name: Build P2S LeanOpenwrt
 
 on:
   repository_dispatch:
@@ -11,7 +11,7 @@ on:
 #    types: started
 
 env:
-  REPO_URL: https://github.com/DHDAXCW/Station_P2_SourceCode
+  REPO_URL: https://github.com/DHDAXCW/openwrt
   REPO_BRANCH: main
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: configs/lean/lean.config
@@ -69,6 +69,7 @@ jobs:
         # chmod +x $DIY_P2_SH
         cd openwrt
         # $GITHUB_WORKSPACE/$DIY_P2_SH
+
     - name: Download package
       id: package
       run: |
