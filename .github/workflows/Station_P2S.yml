@@ -11,7 +11,7 @@ on:
 #    types: started
 
 env:
-  REPO_URL: https://github.com/DHDAXCW/openwrt
+  REPO_URL: https://github.com/DHDAXCW/Station_P2_SourceCode
   REPO_BRANCH: main
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: configs/lean/lean.config
