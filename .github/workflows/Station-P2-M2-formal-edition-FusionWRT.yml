@@ -55,8 +55,7 @@ jobs:
         git config --global user.name "GitHub"
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        cp configs/rk356x_config .config
-        make defconfig
+
     - name: Cache
       uses: klever1988/cachewrtbuild@main
       with:
@@ -92,6 +91,7 @@ jobs:
         ../$DIY_SH
         ../scripts/preset-clash-core.sh armv8
         ../scripts/preset-terminal-tools.sh
+        cp configs/rk356x_config .config
         make defconfig
     - name: Download Package
       id: package
