@@ -55,8 +55,8 @@ jobs:
         git config --global user.name "GitHub"
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        svn co https://github.com/DHDAXCW/cc/trunk/package/firefly package/firefly
-        svn co https://github.com/DHDAXCW/cc/trunk/target/linux/firefly target/linux/firefly
+        cp configs/rk356x_config .config
+        make defconfig
     - name: Cache
       uses: klever1988/cachewrtbuild@main
       with:
