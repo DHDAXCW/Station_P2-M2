@@ -92,7 +92,6 @@ jobs:
         ../$DIY_SH
         ../scripts/preset-clash-core.sh armv8
         ../scripts/preset-terminal-tools.sh
-        cp configs/rk356x_config .config
         make defconfig
     - name: Download Package
       id: package
