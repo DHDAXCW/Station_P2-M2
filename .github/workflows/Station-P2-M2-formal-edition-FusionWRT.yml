@@ -55,8 +55,6 @@ jobs:
         git config --global user.name "GitHub"
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        rm -rf package/kernel/mac80211/files/lib/wifi/mac80211.sh
-        wget -P package/kernel/mac80211/files/lib/wifi https://raw.githubusercontent.com/coolsnowwolf/lede/master/package/kernel/mac80211/files/lib/wifi/mac80211.sh
     - name: Cache
       uses: klever1988/cachewrtbuild@main
       with:
