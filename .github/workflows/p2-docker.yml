@@ -18,7 +18,7 @@ on:
 
 env:
   REPO_URL: https://github.com/FireflyTeam/lede
-  REPO_BRANCH: station-p2
+  REPO_BRANCH: station-p2-docker
   CONFIG_FILE: configs/lean/leanp2.config
   DIY_SH: scripts/lean.sh
   KMODS_IN_FIRMWARE: true
